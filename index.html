@@ -226,7 +226,7 @@ header p{
 
 <header>
   <h1>MATEMÁTICA TESTE GRÁTIS</h1>
-  <p>2 MÓDULOS LIBERADOS • 10 QUESTÕES CADA • RESTANTE BLOQUEADO</p>
+  <p>TESTE: 2 MÓDULOS LIBERADOS • 10 QUESTÕES CADA • PREMIUM: 10 MÓDULOS E 200 QUESTÕES</p>
 </header>
 
 <div id="app"></div>
@@ -244,7 +244,7 @@ header p{
 </audio>
 
 <script>
-const PREMIUM_URL = "COLE_AQUI_O_LINK_PREMIUM_DE_MATEMATICA";
+const PREMIUM_URL = "https://pay.kiwify.com.br/SKiUUvs";
 
 const app = document.getElementById("app");
 const audioBg = document.getElementById("audio-bg");
@@ -374,7 +374,11 @@ const bancoQuestoes = {
 };
 
 function irParaPremium(){
-  window.location.href = PREMIUM_URL;
+  if (!PREMIUM_URL || PREMIUM_URL.includes("COLE_AQUI")) {
+    alert("Link premium não configurado.");
+    return;
+  }
+  window.open(PREMIUM_URL,"_blank","noopener");
 }
 
 function mostrarMenu(){
@@ -383,7 +387,7 @@ function mostrarMenu(){
   app.innerHTML = `
     <div class="box">
       <h2 style="color:var(--blue);margin-bottom:8px;">Escolha um módulo de Matemática</h2>
-      <p class="mini">No teste grátis você libera <strong>2 módulos</strong>. Os demais ficam bloqueados para levar ao premium.</p>
+      <p class="mini">No teste grátis você libera <strong>2 módulos com 10 questões cada</strong>. Na versão premium você desbloqueia <strong>10 módulos e 200 questões</strong>.</p>
 
       <div class="grid-areas">
         ${areas.map(area=>`
@@ -407,7 +411,7 @@ function mostrarBloqueio(){
     <div class="lock-box">
       <h2>🔒 MÓDULO PREMIUM</h2>
       <p>Esse módulo está disponível apenas na versão completa do simulado de Matemática.</p>
-      <p>No premium você desbloqueia todos os módulos e continua seu treinamento completo.</p>
+      <p>No premium você desbloqueia <strong>10 módulos</strong> e <strong>200 questões completas</strong>.</p>
       <button class="btn btn-premium" onclick="irParaPremium()">LIBERAR ACESSO COMPLETO</button>
       <button class="btn btn-voltar" onclick="mostrarMenu()">VOLTAR AO MENU</button>
     </div>
@@ -505,7 +509,7 @@ function finalizarArea(){
 
   const notaFinal = acertosObjetivas * 10;
   const totalPossivel = 200;
-  let feedback = "Você concluiu apenas uma parte do simulado completo (200 pontos). Desbloqueie o premium para acessar todas as disciplinas.";
+  let feedback = "Você concluiu uma amostra do Simulado Matemática ENEM. A versão premium possui 10 módulos e 200 questões.";
 
   if(notaFinal >= 80) feedback += " Ótimo resultado no teste grátis. Você já pode avançar para o premium.";
   else if(notaFinal >= 50) feedback += " Bom começo. No premium você treina o restante dos módulos.";
